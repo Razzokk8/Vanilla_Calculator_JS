@@ -23,6 +23,7 @@ appendNumber(number) {
 }
 
 chooseOperation(operation) {
+
     if (this.currentOperand === '') return
     if (this.previousOperand !== '') {
         this.compute()
@@ -60,7 +61,21 @@ compute() {
 
 }
 
+handleNegativeButton() {
+    if(this.currentOperand === '') {
+        this.appendNumber('-');
+    } else if(this.currentOperand === '-') {
+        return;
+    } else {
+        this.chooseOperation('-')
+    }
+     this.updateDisplay()
+}
+
 getDisplayNumber(number) {
+    if(number === '-') {
+        return number;
+    }
     const stringNumber = number.toString()
     const integerDigits = parseFloat(stringNumber.split('.')[0])
     const decimalDigits = stringNumber.split('.')[1]
@@ -96,6 +111,7 @@ const operationButtons = document.querySelectorAll('[data-operation]');
 const equalButton = document.querySelector('[data-equals]');
 const deleteButton = document.querySelector('[data-delete');
 const allClearButton = document.querySelector('[data-all-clear]')
+const negativeButton = document.querySelector('[data-negative]');
 
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand')
@@ -114,6 +130,10 @@ operationButtons.forEach(button => {
         calculator.chooseOperation(button.innerText)
         calculator.updateDisplay()
     })
+})
+
+negativeButton.addEventListener('click', () => {
+    calculator.handleNegativeButton();
 })
 
 equalButton.addEventListener('click', button => {
