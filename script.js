@@ -4,11 +4,10 @@ class Calculator {
         this.previousOperandTextElement = previousOperandTextElement
         this.currentOperandTextElement = currentOperandTextElement
         this.clear()
-
     }
 
 clear() {
-    this.currentOperand = ''
+    this.currentOperand = '0'
     this.previousOperand = ''
     this.operation = undefined
 }
@@ -23,20 +22,22 @@ appendNumber(number) {
 }
 
 chooseOperation(operation) {
-
     if (this.currentOperand === '') return
     if (this.previousOperand !== '') {
         this.compute()
     }
-    this.operation = operation
+    this.operation = operation 
     this.previousOperand = this.currentOperand
     this.currentOperand = ''
+
+    
 }
 
 compute() {
     let computation 
     const prev = parseFloat(this.previousOperand)
     const current = parseFloat(this.currentOperand)
+
     if(isNaN(prev) || isNaN(current)) return
     switch (this.operation) {
         case '+':
